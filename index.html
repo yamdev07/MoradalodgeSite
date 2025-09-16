@@ -3,114 +3,951 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Morada Lodge</title>
+  <title>Morada Lodge - Havre de Luxe au Cœur de la Nature</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-green: #059669;
+      --secondary-green: #10b981;
+      --accent-gold: #d97706;
+      --dark-green: #064e3b;
+      --light-green: #d1fae5;
+    }
+    
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+    
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.8) 0%, rgba(5, 150, 105, 0.6) 100%);
+    }
+    
+    .glass-effect {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card-hover {
+      transition: all 0.4s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-green), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--primary-green);
+      border-radius: 4px;
+    }
+    
+    /* Parallax effect */
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    /* Luxury button styles */
+    .btn-luxury {
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+      box-shadow: 0 10px 30px rgba(5, 150, 105, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-luxury:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(5, 150, 105, 0.4);
+    }
+    
+    /* Navigation styling */
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Room card animations */
+    .room-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .room-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .room-card:hover::before {
+      left: 100%;
+    }
+    
+    /* Image overlay effects */
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.8) 0%, rgba(217, 119, 6, 0.8) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    .image-container:hover .image-overlay {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800">
+<body class="font-inter bg-gray-50 text-gray-800 custom-scrollbar">
 
   <!-- Header -->
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-green-700">🌿 Morada Lodge</h1>
-      <nav class="space-x-6">
-        <a href="#chambres" class="hover:text-green-600">Chambres</a>
-        <a href="#restaurant" class="hover:text-green-600">Restaurant</a>
-        <a href="#galerie" class="hover:text-green-600">Galerie</a>
-        <a href="#contact" class="hover:text-green-600">Contact</a>
-      </nav>
+  <header class="fixed top-0 w-full z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+            <i class="fas fa-leaf text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-playfair font-bold gradient-text">Morada Lodge</h1>
+            <p class="text-xs text-gray-600 font-inter">Luxury Nature Resort</p>
+          </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#chambres" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Hébergements</a>
+          <a href="#restaurant" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Gastronomie</a>
+          <a href="#services" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Services</a>
+          <a href="#galerie" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Galerie</a>
+          <a href="#contact" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Contact</a>
+        </nav>
+        
+        <!-- CTA Button -->
+        <button class="btn-luxury text-white px-6 py-3 rounded-full font-semibold">
+          <i class="fas fa-calendar-alt mr-2"></i>Réserver
+        </button>
+        
+        <!-- Mobile menu button -->
+        <button class="md:hidden text-gray-700" id="mobile-menu-btn">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div class="md:hidden bg-white shadow-lg hidden" id="mobile-menu">
+      <div class="px-6 py-4 space-y-4">
+        <a href="#chambres" class="block text-gray-700 hover:text-green-600 font-medium">Hébergements</a>
+        <a href="#restaurant" class="block text-gray-700 hover:text-green-600 font-medium">Gastronomie</a>
+        <a href="#services" class="block text-gray-700 hover:text-green-600 font-medium">Services</a>
+        <a href="#galerie" class="block text-gray-700 hover:text-green-600 font-medium">Galerie</a>
+        <a href="#contact" class="block text-gray-700 hover:text-green-600 font-medium">Contact</a>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative bg-cover bg-center h-[80vh]" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
-    <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
-      <div class="text-center text-white px-6">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4">Bienvenue à Morada Lodge</h2>
-        <p class="text-lg md:text-xl mb-6">Un havre de paix au cœur de la nature</p>
-        <a href="reservation.html" class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-semibold">Réserver maintenant</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Chambres -->
-  <section id="chambres" class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-center text-green-700 mb-12">Nos Chambres</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Bungalows -->
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1600585154154-43a1a1bb18a5" alt="Bungalow" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold">🛖 Bungalows Majestueux</h3>
-          <p class="text-sm mt-2">Authenticité et sérénité au cœur de la verdure.</p>
+  <!-- Hero Section -->
+  <section class="relative h-screen parallax" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="relative z-10 h-full flex items-center justify-center text-white">
+      <div class="text-center px-6 max-w-4xl">
+        <div class="floating">
+          <i class="fas fa-leaf text-6xl mb-6 text-yellow-400"></i>
         </div>
-      </div>
-      <!-- Chambres Confort -->
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1600585154394-0c37c5e9c0a1" alt="Chambre Confort" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold">🏛 Chambres Confort</h3>
-          <p class="text-sm mt-2">Simples et pratiques au meilleur prix.</p>
+        <h2 class="text-5xl md:text-7xl font-playfair font-bold mb-6 leading-tight">
+          Découvrez le Luxe
+          <span class="block text-yellow-400">au Cœur de la Nature</span>
+        </h2>
+        <p class="text-xl md:text-2xl mb-8 font-light leading-relaxed">
+          Un sanctuaire de tranquillité où l'élégance rencontre l'authenticité africaine
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button class="btn-luxury text-white px-8 py-4 rounded-full font-semibold text-lg">
+            <i class="fas fa-calendar-check mr-3"></i>Réserver votre séjour
+          </button>
+          <button class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition-all">
+            <i class="fas fa-play mr-3"></i>Visite virtuelle
+          </button>
         </div>
-      </div>
-      <!-- Suite -->
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1600585153934-0c7aefcd23c7" alt="Suite" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold">👑 Suite Présidentielle</h3>
-          <p class="text-sm mt-2">Luxe et confort avec vue panoramique.</p>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <div class="animate-bounce">
+            <i class="fas fa-chevron-down text-2xl text-yellow-400"></i>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Restaurant -->
-  <section id="restaurant" class="bg-gray-100 py-16">
+  <!-- Features Strip -->
+  <section class="bg-white py-16 shadow-lg">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center text-green-700 mb-12">🍴 Restaurant & Bar</h2>
-      <p class="text-center max-w-3xl mx-auto mb-10">
-        Situé face à la piscine, sous une paillote majestueuse, notre restaurant propose une cuisine locale et internationale : grillades, plats africains, spécialités européennes et cocktails variés.
-      </p>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-semibold text-lg">Plats Africains</h3>
-          <p class="text-sm mt-2">Amiwo, Atassi, MAN au Télibo, Bomiwo… revisités avec passion.</p>
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-swimming-pool text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Piscine Privée</h3>
+          <p class="text-gray-600 text-sm">Détente absolue dans un cadre idyllique</p>
         </div>
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-semibold text-lg">Grillades & Fruits de Mer</h3>
-          <p class="text-sm mt-2">Brochettes, poisson braisé, gambas sautées, barbecue entre amis.</p>
+        <div class="reveal">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-utensils text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Gastronomie</h3>
+          <p class="text-gray-600 text-sm">Cuisine raffinée locale et internationale</p>
         </div>
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-semibold text-lg">Boissons & Cocktails</h3>
-          <p class="text-sm mt-2">Cocktails maison, boissons fraîches pour accompagner vos repas.</p>
+        <div class="reveal">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-leaf text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Écologique</h3>
+          <p class="text-gray-600 text-sm">Respect de l'environnement et développement durable</p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-concierge-bell text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Service 5 étoiles</h3>
+          <p class="text-gray-600 text-sm">Excellence et attention personnalisée</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Galerie -->
-  <section id="galerie" class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-center text-green-700 mb-12">📸 Galerie</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210c7" class="rounded-xl shadow-lg object-cover h-64 w-full" alt="piscine">
-      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" class="rounded-xl shadow-lg object-cover h-64 w-full" alt="jardin">
-      <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" class="rounded-xl shadow-lg object-cover h-64 w-full" alt="restaurant">
+  <!-- Chambres Section -->
+  <section id="chambres" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Hébergements</span>
+        <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Nos Suites de Prestige</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Chaque hébergement est conçu comme un havre de paix, alliant confort moderne et charme authentique africain
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Bungalows -->
+        <div class="room-card card-hover bg-white rounded-3xl shadow-lg overflow-hidden reveal">
+          <div class="image-container relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154154-43a1a1bb18a5" alt="Bungalow" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <div class="image-overlay">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="absolute top-4 right-4 bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+              Premium
+            </div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-home text-green-600 text-2xl mr-3"></i>
+              <h3 class="text-2xl font-playfair font-bold">Bungalows Majestueux</h3>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Authenticité et sérénité dans des hébergements traditionnels réinventés avec tout le confort moderne.
+            </p>
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Terrasse privée avec vue jardin</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Climatisation et ventilateur</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Salle de bain privée luxueuse</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-3xl font-bold text-green-600">125€</span>
+                <span class="text-gray-600">/nuit</span>
+              </div>
+              <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+                Réserver
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chambres Confort -->
+        <div class="room-card card-hover bg-white rounded-3xl shadow-lg overflow-hidden reveal">
+          <div class="image-container relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154394-0c37c5e9c0a1" alt="Chambre Confort" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <div class="image-overlay">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="absolute top-4 right-4 bg-blue-400 text-white px-3 py-1 rounded-full text-sm font-semibold">
+              Confort
+            </div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-bed text-green-600 text-2xl mr-3"></i>
+              <h3 class="text-2xl font-playfair font-bold">Chambres Confort</h3>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Élégantes et pratiques, parfaites pour un séjour alliant simplicité et raffinement à prix accessible.
+            </p>
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Lit queen size confortable</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Wi-Fi haut débit gratuit</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Minibar et télévision HD</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-3xl font-bold text-green-600">85€</span>
+                <span class="text-gray-600">/nuit</span>
+              </div>
+              <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+                Réserver
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suite Présidentielle -->
+        <div class="room-card card-hover bg-white rounded-3xl shadow-lg overflow-hidden reveal">
+          <div class="image-container relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585153934-0c7aefcd23c7" alt="Suite" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <div class="image-overlay">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+              Prestige
+            </div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-crown text-green-600 text-2xl mr-3"></i>
+              <h3 class="text-2xl font-playfair font-bold">Suite Présidentielle</h3>
+            </div>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              L'expérience ultime du luxe avec vue panoramique, service personnalisé et prestations d'exception.
+            </p>
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Suite 2 pièces avec salon privé</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Balcon avec vue panoramique</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <span>Service de conciergerie 24h/24</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-3xl font-bold text-green-600">250€</span>
+                <span class="text-gray-600">/nuit</span>
+              </div>
+              <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+                Réserver
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="bg-green-700 text-white py-16">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-6">📞 Contactez-nous</h2>
-      <p class="mb-4">📍 Cotonou, Bénin</p>
-      <p class="mb-4">📧 contact@moradalodge.com | 📱 +229 90 00 00 00</p>
-      <a href="mailto:contact@moradalodge.com" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold">Envoyer un email</a>
+  <!-- Restaurant Section -->
+  <section id="restaurant" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Gastronomie</span>
+          <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">
+            Saveurs d'Afrique & du Monde
+          </h2>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            Notre restaurant vous invite à un voyage culinaire exceptionnel sous une majestueuse paillote face à la piscine. 
+            Découvrez nos spécialités locales revisitées et notre cuisine internationale raffinée.
+          </p>
+          
+          <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-pepper-hot text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Cuisine Locale Authentique</h4>
+                <p class="text-sm text-gray-600">Amiwo, Atassi, MAN au Télibo revisités avec passion</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-fish text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Grillades & Fruits de Mer</h4>
+                <p class="text-sm text-gray-600">Brochettes, poissons braisés, gambas sautées</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-cocktail text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Bar & Cocktails</h4>
+                <p class="text-sm text-gray-600">Cocktails signature et boissons rafraîchissantes</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-clock text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Service Continu</h4>
+                <p class="text-sm text-gray-600">Ouvert de 7h à 23h tous les jours</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="btn-luxury text-white px-8 py-4 rounded-full font-semibold">
+            <i class="fas fa-utensils mr-3"></i>Voir le menu
+          </button>
+        </div>
+        
+        <div class="reveal">
+          <div class="grid grid-cols-2 gap-4">
+            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" class="rounded-2xl shadow-lg object-cover h-64 w-full card-hover" alt="restaurant">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b" class="rounded-2xl shadow-lg object-cover h-64 w-full card-hover mt-8" alt="cuisine">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 bg-green-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Services</span>
+        <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Expériences Premium</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Profitez d'une gamme complète de services conçus pour rendre votre séjour inoubliable
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center reveal">
+          <div class="w-20 h-20 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-swimming-pool text-green-600 text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Piscine & Détente</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Piscine extérieure avec transats et service poolside</p>
+        </div>
+        <div class="text-center reveal">
+          <div class="w-20 h-20 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-wifi text-green-600 text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Wi-Fi Haut Débit</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Connexion internet gratuite dans tout l'établissement</p>
+        </div>
+        <div class="text-center reveal">
+          <div class="w-20 h-20 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-car text-green-600 text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Parking Sécurisé</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Stationnement gratuit et surveillance 24h/24</p>
+        </div>
+        <div class="text-center reveal">
+          <div class="w-20 h-20 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-concierge-bell text-green-600 text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Conciergerie</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Service personnalisé pour organiser vos activités</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie Section -->
+  <section id="galerie" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Galerie</span>
+        <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Moments d'Exception</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Découvrez l'atmosphère unique de Morada Lodge à travers ces images qui capturent l'essence de notre havre de paix
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="md:col-span-2 md:row-span-2">
+          <div class="image-container relative h-96 md:h-full overflow-hidden rounded-3xl shadow-lg reveal">
+            <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210c7" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Piscine principale">
+            <div class="image-overlay rounded-3xl">
+              <div class="text-center">
+                <i class="fas fa-swimming-pool text-4xl mb-2"></i>
+                <p class="font-semibold">Piscine Principale</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Jardins tropicaux">
+          <div class="image-overlay rounded-3xl">
+            <div class="text-center">
+              <i class="fas fa-leaf text-2xl mb-2"></i>
+              <p class="font-semibold text-sm">Jardins</p>
+            </div>
+          </div>
+        </div>
+        <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
+          <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Restaurant paillote">
+          <div class="image-overlay rounded-3xl">
+            <div class="text-center">
+              <i class="fas fa-utensils text-2xl mb-2"></i>
+              <p class="font-semibold text-sm">Restaurant</p>
+            </div>
+          </div>
+        </div>
+        <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Lobby accueil">
+          <div class="image-overlay rounded-3xl">
+            <div class="text-center">
+              <i class="fas fa-door-open text-2xl mb-2"></i>
+              <p class="font-semibold text-sm">Accueil</p>
+            </div>
+          </div>
+        </div>
+        <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
+          <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Sunset terrace">
+          <div class="image-overlay rounded-3xl">
+            <div class="text-center">
+              <i class="fas fa-sun text-2xl mb-2"></i>
+              <p class="font-semibold text-sm">Terrasse</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12 reveal">
+        <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-colors">
+          <i class="fas fa-images mr-3"></i>Voir toute la galerie
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Témoignages</span>
+        <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Ce que disent nos hôtes</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-3xl p-8 shadow-lg card-hover reveal">
+          <div class="flex items-center mb-6">
+            <div class="flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-6 italic leading-relaxed">
+            "Un séjour absolument magique ! L'accueil chaleureux, la cuisine exceptionnelle et le cadre paradisiaque ont rendu notre lune de miel inoubliable."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-user text-green-600"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold">Sophie & Pierre Martin</h4>
+              <p class="text-sm text-gray-500">France</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-3xl p-8 shadow-lg card-hover reveal">
+          <div class="flex items-center mb-6">
+            <div class="flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-6 italic leading-relaxed">
+            "La tranquillité du lieu et la qualité des services font de Morada Lodge une adresse incontournable. Nous reviendrons sans hésiter !"
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-user text-green-600"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold">James Thompson</h4>
+              <p class="text-sm text-gray-500">Canada</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-3xl p-8 shadow-lg card-hover reveal">
+          <div class="flex items-center mb-6">
+            <div class="flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-6 italic leading-relaxed">
+            "Un véritable havre de paix où service impeccable rime avec authenticité. La découverte culinaire a été un vrai bonheur !"
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-user text-green-600"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold">Amina Diallo</h4>
+              <p class="text-sm text-gray-500">Sénégal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gradient-to-br from-green-800 to-green-600 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <span class="text-green-200 font-semibold tracking-wider uppercase text-sm">Contact</span>
+          <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">
+            Réservez votre Séjour d'Exception
+          </h2>
+          <p class="text-xl text-green-100 mb-8 leading-relaxed">
+            Notre équipe est à votre disposition pour organiser un séjour sur mesure qui dépassera toutes vos attentes.
+          </p>
+          
+          <div class="space-y-6">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                <i class="fas fa-map-marker-alt text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg">Adresse</h4>
+                <p class="text-green-200">Cotonou, République du Bénin</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                <i class="fas fa-phone text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg">Téléphone</h4>
+                <p class="text-green-200">+229 90 00 00 00</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                <i class="fas fa-envelope text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg">Email</h4>
+                <p class="text-green-200">contact@moradalodge.com</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                <i class="fas fa-clock text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg">Réception</h4>
+                <p class="text-green-200">24h/24 - 7j/7</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex space-x-4 mt-8">
+            <button class="bg-white text-green-800 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-colors">
+              <i class="fas fa-calendar-check mr-3"></i>Réserver en ligne
+            </button>
+            <button class="glass-effect border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
+              <i class="fas fa-phone mr-3"></i>Appeler maintenant
+            </button>
+          </div>
+        </div>
+        
+        <div class="reveal">
+          <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+            <h3 class="text-2xl font-playfair font-bold mb-6">Demande de Réservation</h3>
+            <form class="space-y-6">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Prénom</label>
+                  <input type="text" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Votre prénom">
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Nom</label>
+                  <input type="text" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Votre nom">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">Email</label>
+                <input type="email" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="votre@email.com">
+              </div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Arrivée</label>
+                  <input type="date" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Départ</label>
+                  <input type="date" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">Type de chambre</label>
+                <select class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                  <option value="">Choisir un hébergement</option>
+                  <option value="bungalow">Bungalow Majestueux</option>
+                  <option value="confort">Chambre Confort</option>
+                  <option value="suite">Suite Présidentielle</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">Message (optionnel)</label>
+                <textarea rows="4" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Demandes particulières..."></textarea>
+              </div>
+              <button type="submit" class="w-full bg-white text-green-800 py-4 rounded-xl font-semibold hover:bg-green-50 transition-colors">
+                <i class="fas fa-paper-plane mr-3"></i>Envoyer la demande
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-300 py-6 text-center">
-    <p>&copy; 2025 Morada Lodge - Tous droits réservés.</p>
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+              <i class="fas fa-leaf text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-playfair font-bold text-white">Morada Lodge</h3>
+              <p class="text-xs text-gray-500">Luxury Nature Resort</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Un sanctuaire de luxe au cœur de la nature béninoise, où authenticité et raffinement se rencontrent pour créer des souvenirs inoubliables.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-facebook-f text-sm"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-instagram text-sm"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-tripadvisor text-sm"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-semibold mb-6">Liens Rapides</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#chambres" class="hover:text-green-400 transition-colors">Hébergements</a></li>
+            <li><a href="#restaurant" class="hover:text-green-400 transition-colors">Restaurant & Bar</a></li>
+            <li><a href="#services" class="hover:text-green-400 transition-colors">Services</a></li>
+            <li><a href="#galerie" class="hover:text-green-400 transition-colors">Galerie</a></li>
+            <li><a href="#contact" class="hover:text-green-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-semibold mb-6">Services</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-green-400 transition-colors">Réservation en ligne</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Service de conciergerie</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Transfert aéroport</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Excursions</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Événements privés</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-semibold mb-6">Newsletter</h4>
+          <p class="text-sm text-gray-400 mb-4">Restez informés de nos offres spéciales et nouveautés</p>
+          <div class="flex">
+            <input type="email" placeholder="Votre email" class="flex-1 px-4 py-2 bg-gray-800 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg transition-colors">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-sm text-gray-500">&copy; 2025 Morada Lodge - Tous droits réservés.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0 text-sm">
+          <a href="#" class="hover:text-green-400 transition-colors">Conditions générales</a>
+          <a href="#" class="hover:text-green-400 transition-colors">Politique de confidentialité</a>
+          <a href="#" class="hover:text-green-400 transition-colors">Mentions légales</a>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.backdropFilter = 'blur(20px)';
+        header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        header.querySelectorAll('.text-gray-700').forEach(el => {
+          el.style.color = '#374151';
+        });
+      } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+        header.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Reveal animation on scroll
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', reveal);
+    document.addEventListener('DOMContentLoaded', reveal);
+
+    // Form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Merci pour votre demande ! Nous vous contacterons très prochainement.');
+    });
+  </script>
 
 </body>
 </html>
