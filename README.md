@@ -1,94 +1,94 @@
-# 🌿 Morada Lodge - Site Vitrine & Réservation en Ligne
+# Morada Lodge - Havre de Luxe au Cœur de la Nature
 
-Bienvenue dans le dépôt GitHub du site web **Morada Lodge**, un site vitrine moderne pour un lodge au Bénin, intégrant une page de réservation étape par étape avec options de paiement en ligne ou sur place.
-
----
-
-## 📝 Description du projet
-
-Le site Morada Lodge a été conçu pour :  
-- Présenter les **chambres**, le **restaurant**, la **galerie** et les **contacts** du lodge.  
-- Offrir une expérience utilisateur **simple et fluide**, adaptée aux ordinateurs et mobiles grâce à **Tailwind CSS**.  
-- Proposer une **réservation en ligne incrémentale** : le client renseigne ses informations, choisit le type de paiement (en ligne ou sur place), et peut payer via **FedaPay, Cinet ou Kika**.  
+Bienvenue sur le dépôt officiel du site web **Morada Lodge**, un resort de luxe alliant élégance, confort et immersion dans la nature.
 
 ---
 
-## 🌐 Pages principales
+## 🌿 Description
 
-1. **index.html** : Page d’accueil avec :  
-   - Hero avec bouton "Réserver maintenant"  
-   - Sections Chambres, Restaurant, Galerie et Contact  
-   - Footer  
+**Morada Lodge** est un site vitrine conçu pour présenter l'expérience unique offerte par notre lodge :
 
-2. **reservation.html** : Page de réservation étape par étape :  
-   - Étape 1 : Informations personnelles (Nom, Email, Téléphone)  
-   - Étape 2 : Choix du mode de paiement (en ligne ou sur place)  
-   - Étape 3 : Redirection vers la plateforme de paiement choisie (FedaPay / Cinet / Kika)  
-   - Étape 4 : Confirmation de réservation si paiement sur place  
+- Hébergements de prestige (Bungalows, Chambres Confort, Suite Présidentielle)
+- Gastronomie locale et internationale
+- Services premium (piscine, conciergerie, parking sécurisé, Wi-Fi)
+- Galerie photo immersive
+- Section de témoignages et avis clients
+- Formulaire de réservation et contact
 
----
-
-## 💻 Technologies utilisées
-
-- **HTML5** et **CSS**  
-- **Tailwind CSS** pour le style moderne et responsive  
-- **JavaScript** pour la logique des étapes de réservation  
-- (Optionnel) APIs de paiement pour intégration avancée  
+Le site est conçu avec **HTML5**, **Tailwind CSS**, **Font Awesome** et une typographie moderne avec **Playfair Display** et **Inter**. Il est responsive et adapté à tous les écrans.
 
 ---
 
-## ⚡ Fonctionnalités principales
+## 🎨 Technologies utilisées
 
-- Design **responsive** pour mobile et desktop  
-- Navigation fluide et sticky header  
-- Page de réservation **incrémentale**  
-- Possibilité de choisir le mode de paiement  
-- Redirection vers les plateformes de paiement locales ou internationales  
+- **HTML5**
+- **Tailwind CSS** pour le design et la mise en page
+- **JavaScript** pour les animations et interactions (menu mobile, effets parallax, reveal)
+- **Font Awesome** pour les icônes
+- **Google Fonts** : Playfair Display et Inter
+- Effets visuels : animations, overlays, parallax, boutons luxury, glassmorphism
+
+---
+
+## 🚀 Fonctionnalités
+
+- Navigation fixe avec effet hover
+- Hero section immersive avec animation flottante et overlay
+- Présentation des chambres avec cartes interactives
+- Galerie photo et section services
+- Témoignages clients
+- Formulaire de réservation en ligne
+- Contact rapide (téléphone, email, localisation)
+- Responsive design pour mobile, tablette et desktop
 
 ---
 
 ## 📂 Structure du projet
-morada-lodge/
-│
-├─ index.html # Page d'accueil
-├─ reservation.html # Page de réservation étape par étape
-├─ README.md # Documentation du projet
-└─ assets/ # Images et ressources (facultatif)
 
+morada-lodge/
+├─ index.html
+├─ css/
+│ └─ styles.css (personnalisation si séparée)
+├─ js/
+│ └─ main.js (animations et interactions)
+├─ images/
+│ └─ [toutes les images utilisées]
+└─ README.md
+
+yaml
+Copier le code
 
 ---
 
-## 🚀 Installation et usage
+## 💻 Installation et utilisation
 
-1. Cloner le dépôt :  
+1. Cloner ce dépôt :
 ```bash
 git clone https://github.com/votre-utilisateur/morada-lodge.git
+Ouvrir le fichier index.html dans un navigateur web moderne.
 
+Pour les modifications CSS, JavaScript ou contenu, éditez les fichiers correspondants.
 
-Ouvrir index.html dans votre navigateur pour tester le site.
+📌 Contribution
+Les contributions sont les bienvenues !
+Pour proposer des modifications :
 
-Cliquer sur Réserver maintenant pour tester la page de réservation étape par étape.
+Forkez le dépôt
 
-Pour le paiement en ligne, remplacer les liens de redirection vers FedaPay, Cinet ou Kika par vos liens réels.
+Créez une branche (git checkout -b feature/nom-fonctionnalité)
 
-📌 Personnalisation
+Faites vos modifications
 
-Modifier les images dans la section Chambres, Restaurant et Galerie selon vos besoins.
+Soumettez une Pull Request
 
-Mettre à jour les informations de contact dans la section Contact.
+📝 Licence
+Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
-Adapter le style Tailwind CSS pour les couleurs et polices du lodge.
-
-📫 Contact
-
-Pour plus d’informations :
-
+📞 Contact
 Email : contact@moradalodge.com
 
 Téléphone : +229 90 00 00 00
 
-🛡 License
+Adresse : Cotonou, Bénin
 
-Ce projet est sous MIT License. Libre d'utilisation, modification et distribution.
-
-Morada Lodge - Un havre de paix au cœur de la nature.
+Morada Lodge - Découvrez le luxe au cœur de la nature.
