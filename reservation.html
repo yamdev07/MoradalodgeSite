@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation - Morada Lodge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+  <header class="bg-white shadow-md py-4 text-center">
+    <h1 class="text-2xl font-bold text-green-700">🌿 Morada Lodge - Réservation</h1>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-6 py-10">
+    <div id="step1" class="step">
+      <h2 class="text-xl font-semibold mb-4">1️⃣ Vos informations personnelles</h2>
+      <input type="text" id="nom" placeholder="Nom complet" class="w-full p-2 mb-3 border rounded-lg">
+      <input type="email" id="email" placeholder="Email" class="w-full p-2 mb-3 border rounded-lg">
+      <input type="tel" id="tel" placeholder="Téléphone" class="w-full p-2 mb-3 border rounded-lg">
+      <button onclick="nextStep(1)" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold">Suivant</button>
+    </div>
+
+    <div id="step2" class="step hidden">
+      <h2 class="text-xl font-semibold mb-4">2️⃣ Type de paiement</h2>
+      <p class="mb-3">Souhaitez-vous payer en ligne ou sur place ?</p>
+      <div class="flex flex-col gap-3">
+        <button onclick="choixPaiement('en_ligne')" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold">En ligne</button>
+        <button onclick="choixPaiement('sur_place')" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg font-semibold">Sur place</button>
+      </div>
+    </div>
+
+    <div id="step3" class="step hidden">
+      <h2 class="text-xl font-semibold mb-4">3️⃣ Paiement en ligne</h2>
+      <p class="mb-4">Vous allez être redirigé vers FedaPay pour finaliser le paiement.</p>
+      <a href="https://sandbox.fedapay.com/checkout" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold">Payer maintenant</a>
+      <button onclick="restart()" class="mt-4 bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg font-semibold">Retour</button>
+    </div>
+
+    <div id="step4" class="step hidden">
+      <h2 class="text-xl font-semibold mb-4">✅ Réservation terminée</h2>
+      <p>Merci ! Votre réservation est confirmée. Vous pouvez payer sur place à votre arrivée.</p>
+      <button onclick="restart()" class="mt-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold">Nouvelle réservation</button>
+    </div>
+  </main>
+
+  <script>
+    function nextStep(step) {
+      document.getElementById(`step${step}`).classList.add('hidden');
+      document.getElementById(`step${step + 1}`).classList.remove('hidden');
+    }
+
+    function choixPaiement(type) {
+      document.getElementById('step2').classList.add('hidden');
+      if(type === 'en_ligne') {
+        document.getElementById('step3').classList.remove('hidden');
+      } else {
+        document.getElementById('step4').classList.remove('hidden');
+      }
+    }
+
+    function restart() {
+      document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
+      document.getElementById('step1').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
