@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation - Morada Lodge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary-green: #059669;
+      --secondary-green: #10b981;
+      --accent-gold: #d97706;
+      --dark-green: #064e3b;
+      --light-green: #d1fae5;
+    }
+
+    .font-playfair {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .font-inter {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .glass-effect {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-luxury {
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+      box-shadow: 0 10px 30px rgba(5, 150, 105, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-luxury:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(5, 150, 105, 0.4);
+    }
+
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Styles spécifiques au formulaire */
+    .form-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .payment-option {
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+      margin-bottom: 16px;
+    }
+
+    .payment-option:hover {
+      border-color: var(--primary-green);
+      background: #f0fdf4;
+    }
+
+    .payment-option.selected {
+      border-color: var(--primary-green);
+      background: #f0fdf4;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .step.active .step-number {
+      background: var(--primary-green);
+      color: white;
+    }
+
+    .step.completed .step-number {
+      background: var(--secondary-green);
+      color: white;
+    }
+
+    .step-line {
+      position: absolute;
+      top: 20px;
+      left: -50%;
+      width: 100%;
+      height: 2px;
+      background: #e5e7eb;
+      z-index: -1;
+    }
+
+    .step-title {
+      font-size: 14px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .step.active .step-title {
+      color: var(--primary-green);
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reservation-summary {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full z-50 transition-all duration-300 bg-white shadow-md" id="header">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+            <i class="fas fa-leaf text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-playfair font-bold gradient-text">Morada Lodge</h1>
+            <p class="text-xs text-gray-600 font-inter">Luxury Nature Resort</p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="index.html#chambres"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Hébergements</a>
+          <a href="index.html#restaurant"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Gastronomie</a>
+          <a href="index.html#services"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Services</a>
+          <a href="index.html#galerie"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Galerie</a>
+          <a href="index.html#contact"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Contact</a>
+        </nav>
+
+        <!-- CTA Button -->
+        <button onclick="window.location.href='reservation.html'"
+          class="btn-luxury text-white px-6 py-3 rounded-full font-semibold">
+          <i class="fas fa-calendar-alt mr-2"></i>Réserver
+        </button>
+
+        <!-- Mobile menu button -->
+        <button class="md:hidden text-gray-700" id="mobile-menu-btn">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden bg-white shadow-lg hidden" id="mobile-menu">
+      <div class="px-6 py-4 space-y-4">
+        <a href="index.html#chambres" class="block text-gray-700 hover:text-green-600 font-medium">Hébergements</a>
+        <a href="index.html#restaurant" class="block text-gray-700 hover:text-green-600 font-medium">Gastronomie</a>
+        <a href="index.html#services" class="block text-gray-700 hover:text-green-600 font-medium">Services</a>
+        <a href="index.html#galerie" class="block text-gray-700 hover:text-green-600 font-medium">Galerie</a>
+        <a href="index.html#contact" class="block text-gray-700 hover:text-green-600 font-medium">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-20 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12 reveal active">
+        <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Réservation</span>
+        <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Réservez Votre Séjour</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Complétez ce formulaire pour réserver votre séjour au Morada Lodge. Notre équipe vous contactera pour confirmer votre réservation.
+        </p>
+      </div>
+
+      <!-- Indicateur d'étapes -->
+      <div class="step-indicator mb-10">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <div class="step-title">Informations</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-title">Paiement</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-title">Confirmation</div>
+          <div class="step-line"></div>
+        </div>
+      </div>
+
+      <!-- Formulaire de réservation -->
+      <div class="form-container p-8 md:p-10">
+        <form id="reservationForm">
+          <!-- Étape 1: Informations personnelles -->
+          <div class="form-step active" id="step1">
+            <h3 class="text-2xl font-playfair font-bold mb-6 text-gray-800">Vos Informations Personnelles</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="form-group">
+                <label class="form-label">Nom complet</label>
+                <input type="text" name="nom" class="form-input" placeholder="Votre nom complet" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-input" placeholder="votre@email.com" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Téléphone</label>
+                <input type="tel" name="telephone" class="form-input" placeholder="Votre numéro de téléphone" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Date d'arrivée</label>
+                <input type="date" name="arrivee" class="form-input" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Date de départ</label>
+                <input type="date" name="depart" class="form-input" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Type de chambre</label>
+                <select name="chambre" class="form-input" required>
+                  <option value="">Sélectionnez une option</option>
+                  <option value="bungalow">Bungalow Majestueux</option>
+                  <option value="confort">Chambre Confort</option>
+                  <option value="suite">Suite Présidentielle</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Nombre d'adultes</label>
+              <select name="adultes" class="form-input" required>
+                <option value="1">1 adulte</option>
+                <option value="2" selected>2 adultes</option>
+                <option value="3">3 adultes</option>
+                <option value="4">4 adultes</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Nombre d'enfants</label>
+              <select name="enfants" class="form-input">
+                <option value="0" selected>Aucun</option>
+                <option value="1">1 enfant</option>
+                <option value="2">2 enfants</option>
+                <option value="3">3 enfants</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Demandes spéciales (optionnel)</label>
+              <textarea name="demandes" class="form-input" rows="4" placeholder="Préférences alimentaires, anniversaire, etc."></textarea>
+            </div>
+            
+            <div class="flex justify-end mt-8">
+              <button type="button" class="btn-luxury text-white px-8 py-4 rounded-full font-semibold" onclick="nextStep()">
+                Continuer <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Étape 2: Choix du paiement -->
+          <div class="form-step" id="step2">
+            <h3 class="text-2xl font-playfair font-bold mb-6 text-gray-800">Mode de Paiement</h3>
+            <p class="text-gray-600 mb-8">Choisissez votre méthode de paiement préférée</p>
+            
+            <div class="payment-options">
+              <div class="payment-option" onclick="selectPayment('en-ligne')">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full border-2 border-gray-400 mr-4 flex items-center justify-center payment-radio">
+                    <div class="w-3 h-3 rounded-full bg-green-500 hidden"></div>
+                  </div>
+                  <input type="radio" name="paiement" value="en-ligne" class="hidden">
+                  <div>
+                    <h4 class="font-semibold text-lg">Paiement en ligne</h4>
+                    <p class="text-gray-600">Payez sécurisé avec FedaPay</p>
+                  </div>
+                  <div class="ml-auto">
+                    <i class="fab fa-cc-visa text-2xl text-blue-600 mr-2"></i>
+                    <i class="fab fa-cc-mastercard text-2xl text-red-600 mr-2"></i>
+                    <i class="fab fa-cc-paypal text-2xl text-blue-500"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="payment-option" onclick="selectPayment('presentiel')">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full border-2 border-gray-400 mr-4 flex items-center justify-center payment-radio">
+                    <div class="w-3 h-3 rounded-full bg-green-500 hidden"></div>
+                  </div>
+                  <input type="radio" name="paiement" value="presentiel" class="hidden">
+                  <div>
+                    <h4 class="font-semibold text-lg">Paiement en présentiel</h4>
+                    <p class="text-gray-600">Payez à votre arrivée au lodge</p>
+                  </div>
+                  <div class="ml-auto">
+                    <i class="fas fa-money-bill-wave text-2xl text-green-600"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex justify-between mt-12">
+              <button type="button" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors" onclick="prevStep()">
+                <i class="fas fa-arrow-left mr-2"></i>Retour
+              </button>
+              <button type="button" class="btn-luxury text-white px-8 py-4 rounded-full font-semibold" onclick="nextStep()">
+                Continuer <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Étape 3: Confirmation -->
+          <div class="form-step" id="step3">
+            <h3 class="text-2xl font-playfair font-bold mb-6 text-gray-800">Confirmation de Réservation</h3>
+            <p class="text-gray-600 mb-8">Veuillez vérifier vos informations avant de confirmer</p>
+            
+            <div class="reservation-summary mb-8">
+              <h4 class="font-semibold text-lg mb-4">Récapitulatif de votre réservation</h4>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Nom complet:</span>
+                <span class="font-medium" id="confirm-nom"></span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Email:</span>
+                <span class="font-medium" id="confirm-email"></span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Téléphone:</span>
+                <span class="font-medium" id="confirm-telephone"></span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Dates:</span>
+                <span class="font-medium" id="confirm-dates"></span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Type de chambre:</span>
+                <span class="font-medium" id="confirm-chambre"></span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Nombre de personnes:</span>
+                <span class="font-medium" id="confirm-personnes"></span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="text-gray-600">Mode de paiement:</span>
+                <span class="font-medium" id="confirm-paiement"></span>
+              </div>
+            </div>
+            
+            <div class="flex justify-between">
+              <button type="button" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors" onclick="prevStep()">
+                <i class="fas fa-arrow-left mr-2"></i>Retour
+              </button>
+              <button type="submit" class="btn-luxury text-white px-8 py-4 rounded-full font-semibold">
+                <i class="fas fa-check-circle mr-2"></i>Confirmer la réservation
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-3 mb-6">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+              <i class="fas fa-leaf text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-playfair font-bold text-white">Morada Lodge</h3>
+              <p class="text-xs text-gray-500">Luxury Nature Resort</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Un sanctuaire de luxe au cœur de la nature béninoise, où authenticité et raffinement se rencontrent pour
+            créer des souvenirs inoubliables.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-facebook-f text-sm"></i>
+            </a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-instagram text-sm"></i>
+            </a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-tripadvisor text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-6">Liens Rapides</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="index.html#chambres" class="hover:text-green-400 transition-colors">Hébergements</a></li>
+            <li><a href="index.html#restaurant" class="hover:text-green-400 transition-colors">Restaurant & Bar</a></li>
+            <li><a href="index.html#services" class="hover:text-green-400 transition-colors">Services</a></li>
+            <li><a href="index.html#galerie" class="hover:text-green-400 transition-colors">Galerie</a></li>
+            <li><a href="index.html#contact" class="hover:text-green-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-6">Services</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-green-400 transition-colors">Réservation en ligne</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Service de conciergerie</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Transfert aéroport</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Excursions</a></li>
+            <li><a href="#" class="hover:text-green-400 transition-colors">Événements privés</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-6">Newsletter</h4>
+          <p class="text-sm text-gray-400 mb-4">Restez informés de nos offres spéciales et nouveautés</p>
+          <div class="flex">
+            <input type="email" placeholder="Votre email"
+              class="flex-1 px-4 py-2 bg-gray-800 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg transition-colors">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-sm text-gray-500">&copy; 2025 Morada Lodge - Tous droits réservés.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0 text-sm">
+          <a href="#" class="hover:text-green-400 transition-colors">Conditions générales</a>
+          <a href="#" class="hover:text-green-400 transition-colors">Politique de confidentialité</a>
+          <a href="#" class="hover:text-green-400 transition-colors">Mentions légales</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Gestion du header au scroll
+    window.addEventListener('scroll', function () {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.backdropFilter = 'blur(20px)';
+        header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        header.querySelectorAll('.text-gray-700').forEach(el => {
+          el.style.color = '#374151';
+        });
+      } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+        header.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Animation de révélation au défilement
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', reveal);
+    document.addEventListener('DOMContentLoaded', reveal);
+
+    // Gestion des étapes du formulaire
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function showStep(step) {
+      // Masquer toutes les étapes
+      document.querySelectorAll('.form-step').forEach(el => {
+        el.classList.remove('active');
+      });
+      
+      // Afficher l'étape courante
+      document.getElementById(`step${step}`).classList.add('active');
+      
+      // Mettre à jour l'indicateur d'étapes
+      document.querySelectorAll('.step').forEach((el, idx) => {
+        el.classList.remove('active', 'completed');
+        if (idx + 1 < step) {
+          el.classList.add('completed');
+        } else if (idx + 1 === step) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    function nextStep() {
+      if (currentStep === 1) {
+        // Validation de l'étape 1
+        const nom = document.querySelector('input[name="nom"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const telephone = document.querySelector('input[name="telephone"]').value;
+        const arrivee = document.querySelector('input[name="arrivee"]').value;
+        const depart = document.querySelector('input[name="depart"]').value;
+        const chambre = document.querySelector('select[name="chambre"]').value;
+        
+        if(!nom || !email || !telephone || !arrivee || !depart || !chambre) {
+          alert("Veuillez remplir tous les champs obligatoires.");
+          return;
+        }
+      }
+      
+      if (currentStep === 2) {
+        // Validation de l'étape 2
+        const paiement = document.querySelector('input[name="paiement"]:checked');
+        if(!paiement) {
+          alert("Veuillez sélectionner un mode de paiement.");
+          return;
+        }
+        
+        // Mettre à jour le récapitulatif
+        updateConfirmation();
+      }
+      
+      if(currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+
+    function prevStep() {
+      if(currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    function selectPayment(value) {
+      document.querySelectorAll('input[name="paiement"]').forEach(radio => {
+        radio.checked = (radio.value === value);
+      });
+      
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('selected');
+        const radio = option.querySelector('input[type="radio"]');
+        if (radio.value === value) {
+          option.classList.add('selected');
+          option.querySelector('.payment-radio > div').classList.remove('hidden');
+        } else {
+          option.querySelector('.payment-radio > div').classList.add('hidden');
+        }
+      });
+    }
+
+    function updateConfirmation() {
+      document.getElementById('confirm-nom').textContent = document.querySelector('input[name="nom"]').value;
+      document.getElementById('confirm-email').textContent = document.querySelector('input[name="email"]').value;
+      document.getElementById('confirm-telephone').textContent = document.querySelector('input[name="telephone"]').value;
+      
+      const arrivee = new Date(document.querySelector('input[name="arrivee"]').value);
+      const depart = new Date(document.querySelector('input[name="depart"]').value);
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('confirm-dates').textContent = 
+        `${arrivee.toLocaleDateString('fr-FR', options)} - ${depart.toLocaleDateString('fr-FR', options)}`;
+      
+      const chambreSelect = document.querySelector('select[name="chambre"]');
+      document.getElementById('confirm-chambre').textContent = chambreSelect.options[chambreSelect.selectedIndex].text;
+      
+      const adultes = document.querySelector('select[name="adultes"]').value;
+      const enfants = document.querySelector('select[name="enfants"]').value;
+      document.getElementById('confirm-personnes').textContent = 
+        `${adultes} adulte(s)${enfants > 0 ? `, ${enfants} enfant(s)` : ''}`;
+      
+      const paiement = document.querySelector('input[name="paiement"]:checked');
+      document.getElementById('confirm-paiement').textContent = 
+        paiement.value === 'en-ligne' ? 'Paiement en ligne (FedaPay)' : 'Paiement en présentiel';
+    }
+
+    document.getElementById('reservationForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      
+      // Animation de confirmation
+      const confirmBtn = this.querySelector('button[type="submit"]');
+      const originalText = confirmBtn.innerHTML;
+      confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Traitement...';
+      confirmBtn.disabled = true;
+      
+      // Simuler un envoi de formulaire
+      setTimeout(() => {
+        alert("Votre réservation a été confirmée ! Un email de confirmation vous a été envoyé.");
+        
+        // Réinitialiser le formulaire
+        this.reset();
+        currentStep = 1;
+        showStep(currentStep);
+        
+        // Réinitialiser les options de paiement
+        document.querySelectorAll('.payment-option').forEach(option => {
+          option.classList.remove('selected');
+          option.querySelector('.payment-radio > div').classList.add('hidden');
+        });
+        
+        // Réinitialiser le bouton
+        confirmBtn.innerHTML = originalText;
+        confirmBtn.disabled = false;
+      }, 2000);
+    });
+
+    // Initialiser l'affichage
+    showStep(currentStep);
+  </script>
+
+</body>
+
+</html>

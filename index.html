@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Morada Lodge - Havre de Luxe au Cœur de la Nature</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --primary-green: #059669;
@@ -15,69 +18,81 @@
       --dark-green: #064e3b;
       --light-green: #d1fae5;
     }
-    
-    .font-playfair { font-family: 'Playfair Display', serif; }
-    .font-inter { font-family: 'Inter', sans-serif; }
-    
+
+    .font-playfair {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .font-inter {
+      font-family: 'Inter', sans-serif;
+    }
+
     .hero-overlay {
       background: linear-gradient(135deg, rgba(6, 78, 59, 0.8) 0%, rgba(5, 150, 105, 0.6) 100%);
     }
-    
+
     .glass-effect {
       backdrop-filter: blur(20px);
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    
+
     .reveal {
       opacity: 0;
       transform: translateY(50px);
       transition: all 0.8s ease;
     }
-    
+
     .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
-    
+
     .card-hover {
       transition: all 0.4s ease;
     }
-    
+
     .card-hover:hover {
       transform: translateY(-10px);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    
+
     .floating {
       animation: floating 3s ease-in-out infinite;
     }
-    
+
     @keyframes floating {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
     }
-    
+
     .gradient-text {
       background: linear-gradient(135deg, var(--primary-green), var(--accent-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
+
     .custom-scrollbar::-webkit-scrollbar {
       width: 8px;
     }
-    
+
     .custom-scrollbar::-webkit-scrollbar-track {
       background: #f1f5f9;
     }
-    
+
     .custom-scrollbar::-webkit-scrollbar-thumb {
       background: var(--primary-green);
       border-radius: 4px;
     }
-    
+
     /* Parallax effect */
     .parallax {
       background-attachment: fixed;
@@ -85,25 +100,25 @@
       background-repeat: no-repeat;
       background-size: cover;
     }
-    
+
     /* Luxury button styles */
     .btn-luxury {
       background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
       box-shadow: 0 10px 30px rgba(5, 150, 105, 0.3);
       transition: all 0.3s ease;
     }
-    
+
     .btn-luxury:hover {
       transform: translateY(-3px);
       box-shadow: 0 15px 40px rgba(5, 150, 105, 0.4);
     }
-    
+
     /* Navigation styling */
     .nav-link {
       position: relative;
       overflow: hidden;
     }
-    
+
     .nav-link::after {
       content: '';
       position: absolute;
@@ -114,17 +129,17 @@
       background: var(--accent-gold);
       transition: width 0.3s ease;
     }
-    
+
     .nav-link:hover::after {
       width: 100%;
     }
-    
+
     /* Room card animations */
     .room-card {
       position: relative;
       overflow: hidden;
     }
-    
+
     .room-card::before {
       content: '';
       position: absolute;
@@ -132,14 +147,14 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: left 0.5s ease;
     }
-    
+
     .room-card:hover::before {
       left: 100%;
     }
-    
+
     /* Image overlay effects */
     .image-overlay {
       position: absolute;
@@ -156,12 +171,13 @@
       color: white;
       font-size: 1.5rem;
     }
-    
+
     .image-container:hover .image-overlay {
       opacity: 1;
     }
   </style>
 </head>
+
 <body class="font-inter bg-gray-50 text-gray-800 custom-scrollbar">
 
   <!-- Header -->
@@ -170,7 +186,8 @@
       <div class="flex justify-between items-center">
         <!-- Logo -->
         <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
             <i class="fas fa-leaf text-white text-xl"></i>
           </div>
           <div>
@@ -178,28 +195,35 @@
             <p class="text-xs text-gray-600 font-inter">Luxury Nature Resort</p>
           </div>
         </div>
-        
+
         <!-- Navigation -->
         <nav class="hidden md:flex space-x-8">
-          <a href="#chambres" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Hébergements</a>
-          <a href="#restaurant" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Gastronomie</a>
-          <a href="#services" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Services</a>
-          <a href="#galerie" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Galerie</a>
-          <a href="#contact" class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Contact</a>
+          <a href="#chambres"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Hébergements</a>
+          <a href="#restaurant"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Gastronomie</a>
+          <a href="#services"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Services</a>
+          <a href="#galerie"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Galerie</a>
+          <a href="#contact"
+            class="nav-link text-gray-700 hover:text-green-600 font-medium transition-colors">Contact</a>
         </nav>
-        
+
         <!-- CTA Button -->
-        <button class="btn-luxury text-white px-6 py-3 rounded-full font-semibold">
+        <button onclick="window.location.href='reservation.html'"
+          class="btn-luxury text-white px-6 py-3 rounded-full font-semibold">
           <i class="fas fa-calendar-alt mr-2"></i>Réserver
         </button>
-        
+
+
         <!-- Mobile menu button -->
         <button class="md:hidden text-gray-700" id="mobile-menu-btn">
           <i class="fas fa-bars text-xl"></i>
         </button>
       </div>
     </div>
-    
+
     <!-- Mobile Navigation -->
     <div class="md:hidden bg-white shadow-lg hidden" id="mobile-menu">
       <div class="px-6 py-4 space-y-4">
@@ -213,7 +237,8 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative h-screen parallax" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
+  <section class="relative h-screen parallax"
+    style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
     <div class="hero-overlay absolute inset-0"></div>
     <div class="relative z-10 h-full flex items-center justify-center text-white">
       <div class="text-center px-6 max-w-4xl">
@@ -231,11 +256,12 @@
           <button class="btn-luxury text-white px-8 py-4 rounded-full font-semibold text-lg">
             <i class="fas fa-calendar-check mr-3"></i>Réserver votre séjour
           </button>
-          <button class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition-all">
+          <button
+            class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition-all">
             <i class="fas fa-play mr-3"></i>Visite virtuelle
           </button>
         </div>
-        
+
         <!-- Scroll indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <div class="animate-bounce">
@@ -292,16 +318,18 @@
           Chaque hébergement est conçu comme un havre de paix, alliant confort moderne et charme authentique africain
         </p>
       </div>
-      
+
       <div class="grid lg:grid-cols-3 gap-8">
         <!-- Bungalows -->
         <div class="room-card card-hover bg-white rounded-3xl shadow-lg overflow-hidden reveal">
           <div class="image-container relative h-64 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1600585154154-43a1a1bb18a5" alt="Bungalow" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <img src="https://images.unsplash.com/photo-1600585154154-43a1a1bb18a5" alt="Bungalow"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             <div class="image-overlay">
               <i class="fas fa-eye"></i>
             </div>
-            <div class="absolute top-4 right-4 bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+            <div
+              class="absolute top-4 right-4 bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
               Premium
             </div>
           </div>
@@ -332,7 +360,8 @@
                 <span class="text-3xl font-bold text-green-600">125€</span>
                 <span class="text-gray-600">/nuit</span>
               </div>
-              <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+              <button
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
                 Réserver
               </button>
             </div>
@@ -342,7 +371,8 @@
         <!-- Chambres Confort -->
         <div class="room-card card-hover bg-white rounded-3xl shadow-lg overflow-hidden reveal">
           <div class="image-container relative h-64 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1600585154394-0c37c5e9c0a1" alt="Chambre Confort" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <img src="https://images.unsplash.com/photo-1600585154394-0c37c5e9c0a1" alt="Chambre Confort"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             <div class="image-overlay">
               <i class="fas fa-eye"></i>
             </div>
@@ -377,7 +407,8 @@
                 <span class="text-3xl font-bold text-green-600">85€</span>
                 <span class="text-gray-600">/nuit</span>
               </div>
-              <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+              <button
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
                 Réserver
               </button>
             </div>
@@ -387,11 +418,13 @@
         <!-- Suite Présidentielle -->
         <div class="room-card card-hover bg-white rounded-3xl shadow-lg overflow-hidden reveal">
           <div class="image-container relative h-64 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1600585153934-0c7aefcd23c7" alt="Suite" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+            <img src="https://images.unsplash.com/photo-1600585153934-0c7aefcd23c7" alt="Suite"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             <div class="image-overlay">
               <i class="fas fa-eye"></i>
             </div>
-            <div class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+            <div
+              class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
               Prestige
             </div>
           </div>
@@ -422,7 +455,8 @@
                 <span class="text-3xl font-bold text-green-600">250€</span>
                 <span class="text-gray-600">/nuit</span>
               </div>
-              <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+              <button
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
                 Réserver
               </button>
             </div>
@@ -442,10 +476,11 @@
             Saveurs d'Afrique & du Monde
           </h2>
           <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-            Notre restaurant vous invite à un voyage culinaire exceptionnel sous une majestueuse paillote face à la piscine. 
+            Notre restaurant vous invite à un voyage culinaire exceptionnel sous une majestueuse paillote face à la
+            piscine.
             Découvrez nos spécialités locales revisitées et notre cuisine internationale raffinée.
           </p>
-          
+
           <div class="grid md:grid-cols-2 gap-6 mb-8">
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -484,16 +519,18 @@
               </div>
             </div>
           </div>
-          
+
           <button class="btn-luxury text-white px-8 py-4 rounded-full font-semibold">
             <i class="fas fa-utensils mr-3"></i>Voir le menu
           </button>
         </div>
-        
+
         <div class="reveal">
           <div class="grid grid-cols-2 gap-4">
-            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" class="rounded-2xl shadow-lg object-cover h-64 w-full card-hover" alt="restaurant">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b" class="rounded-2xl shadow-lg object-cover h-64 w-full card-hover mt-8" alt="cuisine">
+            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7"
+              class="rounded-2xl shadow-lg object-cover h-64 w-full card-hover" alt="restaurant">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b"
+              class="rounded-2xl shadow-lg object-cover h-64 w-full card-hover mt-8" alt="cuisine">
           </div>
         </div>
       </div>
@@ -510,7 +547,7 @@
           Profitez d'une gamme complète de services conçus pour rendre votre séjour inoubliable
         </p>
       </div>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="text-center reveal">
           <div class="w-20 h-20 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
@@ -551,14 +588,17 @@
         <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Galerie</span>
         <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Moments d'Exception</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Découvrez l'atmosphère unique de Morada Lodge à travers ces images qui capturent l'essence de notre havre de paix
+          Découvrez l'atmosphère unique de Morada Lodge à travers ces images qui capturent l'essence de notre havre de
+          paix
         </p>
       </div>
-      
+
       <div class="grid md:grid-cols-4 gap-6">
         <div class="md:col-span-2 md:row-span-2">
           <div class="image-container relative h-96 md:h-full overflow-hidden rounded-3xl shadow-lg reveal">
-            <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210c7" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Piscine principale">
+            <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210c7"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              alt="Piscine principale">
             <div class="image-overlay rounded-3xl">
               <div class="text-center">
                 <i class="fas fa-swimming-pool text-4xl mb-2"></i>
@@ -568,7 +608,9 @@
           </div>
         </div>
         <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Jardins tropicaux">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            alt="Jardins tropicaux">
           <div class="image-overlay rounded-3xl">
             <div class="text-center">
               <i class="fas fa-leaf text-2xl mb-2"></i>
@@ -577,7 +619,9 @@
           </div>
         </div>
         <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-          <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Restaurant paillote">
+          <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            alt="Restaurant paillote">
           <div class="image-overlay rounded-3xl">
             <div class="text-center">
               <i class="fas fa-utensils text-2xl mb-2"></i>
@@ -586,7 +630,8 @@
           </div>
         </div>
         <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Lobby accueil">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Lobby accueil">
           <div class="image-overlay rounded-3xl">
             <div class="text-center">
               <i class="fas fa-door-open text-2xl mb-2"></i>
@@ -595,7 +640,8 @@
           </div>
         </div>
         <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-          <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Sunset terrace">
+          <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Sunset terrace">
           <div class="image-overlay rounded-3xl">
             <div class="text-center">
               <i class="fas fa-sun text-2xl mb-2"></i>
@@ -604,9 +650,10 @@
           </div>
         </div>
       </div>
-      
+
       <div class="text-center mt-12 reveal">
-        <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-colors">
+        <button
+          class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-colors">
           <i class="fas fa-images mr-3"></i>Voir toute la galerie
         </button>
       </div>
@@ -620,7 +667,7 @@
         <span class="text-green-600 font-semibold tracking-wider uppercase text-sm">Témoignages</span>
         <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Ce que disent nos hôtes</h2>
       </div>
-      
+
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white rounded-3xl p-8 shadow-lg card-hover reveal">
           <div class="flex items-center mb-6">
@@ -633,7 +680,8 @@
             </div>
           </div>
           <p class="text-gray-600 mb-6 italic leading-relaxed">
-            "Un séjour absolument magique ! L'accueil chaleureux, la cuisine exceptionnelle et le cadre paradisiaque ont rendu notre lune de miel inoubliable."
+            "Un séjour absolument magique ! L'accueil chaleureux, la cuisine exceptionnelle et le cadre paradisiaque ont
+            rendu notre lune de miel inoubliable."
           </p>
           <div class="flex items-center">
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
@@ -645,7 +693,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="bg-white rounded-3xl p-8 shadow-lg card-hover reveal">
           <div class="flex items-center mb-6">
             <div class="flex text-yellow-400">
@@ -657,7 +705,8 @@
             </div>
           </div>
           <p class="text-gray-600 mb-6 italic leading-relaxed">
-            "La tranquillité du lieu et la qualité des services font de Morada Lodge une adresse incontournable. Nous reviendrons sans hésiter !"
+            "La tranquillité du lieu et la qualité des services font de Morada Lodge une adresse incontournable. Nous
+            reviendrons sans hésiter !"
           </p>
           <div class="flex items-center">
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
@@ -669,7 +718,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="bg-white rounded-3xl p-8 shadow-lg card-hover reveal">
           <div class="flex items-center mb-6">
             <div class="flex text-yellow-400">
@@ -681,7 +730,8 @@
             </div>
           </div>
           <p class="text-gray-600 mb-6 italic leading-relaxed">
-            "Un véritable havre de paix où service impeccable rime avec authenticité. La découverte culinaire a été un vrai bonheur !"
+            "Un véritable havre de paix où service impeccable rime avec authenticité. La découverte culinaire a été un
+            vrai bonheur !"
           </p>
           <div class="flex items-center">
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
@@ -709,7 +759,7 @@
           <p class="text-xl text-green-100 mb-8 leading-relaxed">
             Notre équipe est à votre disposition pour organiser un séjour sur mesure qui dépassera toutes vos attentes.
           </p>
-          
+
           <div class="space-y-6">
             <div class="flex items-center space-x-4">
               <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
@@ -748,17 +798,19 @@
               </div>
             </div>
           </div>
-          
+
           <div class="flex space-x-4 mt-8">
-            <button class="bg-white text-green-800 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-colors">
+            <button
+              class="bg-white text-green-800 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-colors">
               <i class="fas fa-calendar-check mr-3"></i>Réserver en ligne
             </button>
-            <button class="glass-effect border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
+            <button
+              class="glass-effect border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
               <i class="fas fa-phone mr-3"></i>Appeler maintenant
             </button>
           </div>
         </div>
-        
+
         <div class="reveal">
           <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
             <h3 class="text-2xl font-playfair font-bold mb-6">Demande de Réservation</h3>
@@ -766,30 +818,39 @@
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-semibold mb-2">Prénom</label>
-                  <input type="text" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Votre prénom">
+                  <input type="text"
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    placeholder="Votre prénom">
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Nom</label>
-                  <input type="text" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Votre nom">
+                  <input type="text"
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    placeholder="Votre nom">
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-semibold mb-2">Email</label>
-                <input type="email" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="votre@email.com">
+                <input type="email"
+                  class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  placeholder="votre@email.com">
               </div>
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-semibold mb-2">Arrivée</label>
-                  <input type="date" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                  <input type="date"
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Départ</label>
-                  <input type="date" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                  <input type="date"
+                    class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-semibold mb-2">Type de chambre</label>
-                <select class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                <select
+                  class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50">
                   <option value="">Choisir un hébergement</option>
                   <option value="bungalow">Bungalow Majestueux</option>
                   <option value="confort">Chambre Confort</option>
@@ -798,9 +859,12 @@
               </div>
               <div>
                 <label class="block text-sm font-semibold mb-2">Message (optionnel)</label>
-                <textarea rows="4" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Demandes particulières..."></textarea>
+                <textarea rows="4"
+                  class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  placeholder="Demandes particulières..."></textarea>
               </div>
-              <button type="submit" class="w-full bg-white text-green-800 py-4 rounded-xl font-semibold hover:bg-green-50 transition-colors">
+              <button type="submit"
+                class="w-full bg-white text-green-800 py-4 rounded-xl font-semibold hover:bg-green-50 transition-colors">
                 <i class="fas fa-paper-plane mr-3"></i>Envoyer la demande
               </button>
             </form>
@@ -816,7 +880,8 @@
       <div class="grid md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center space-x-3 mb-6">
-            <div class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
               <i class="fas fa-leaf text-white"></i>
             </div>
             <div>
@@ -825,21 +890,25 @@
             </div>
           </div>
           <p class="text-sm text-gray-400 leading-relaxed mb-6">
-            Un sanctuaire de luxe au cœur de la nature béninoise, où authenticité et raffinement se rencontrent pour créer des souvenirs inoubliables.
+            Un sanctuaire de luxe au cœur de la nature béninoise, où authenticité et raffinement se rencontrent pour
+            créer des souvenirs inoubliables.
           </p>
           <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
               <i class="fab fa-facebook-f text-sm"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
               <i class="fab fa-instagram text-sm"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
               <i class="fab fa-tripadvisor text-sm"></i>
             </a>
           </div>
         </div>
-        
+
         <div>
           <h4 class="text-white font-semibold mb-6">Liens Rapides</h4>
           <ul class="space-y-3 text-sm">
@@ -850,7 +919,7 @@
             <li><a href="#contact" class="hover:text-green-400 transition-colors">Contact</a></li>
           </ul>
         </div>
-        
+
         <div>
           <h4 class="text-white font-semibold mb-6">Services</h4>
           <ul class="space-y-3 text-sm">
@@ -861,19 +930,20 @@
             <li><a href="#" class="hover:text-green-400 transition-colors">Événements privés</a></li>
           </ul>
         </div>
-        
+
         <div>
           <h4 class="text-white font-semibold mb-6">Newsletter</h4>
           <p class="text-sm text-gray-400 mb-4">Restez informés de nos offres spéciales et nouveautés</p>
           <div class="flex">
-            <input type="email" placeholder="Votre email" class="flex-1 px-4 py-2 bg-gray-800 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            <input type="email" placeholder="Votre email"
+              class="flex-1 px-4 py-2 bg-gray-800 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600">
             <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg transition-colors">
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>
         </div>
       </div>
-      
+
       <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
         <p class="text-sm text-gray-500">&copy; 2025 Morada Lodge - Tous droits réservés.</p>
         <div class="flex space-x-6 mt-4 md:mt-0 text-sm">
@@ -888,7 +958,7 @@
   <!-- JavaScript -->
   <script>
     // Header scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       const header = document.getElementById('header');
       if (window.scrollY > 100) {
         header.style.background = 'rgba(255, 255, 255, 0.95)';
@@ -905,7 +975,7 @@
     });
 
     // Mobile menu toggle
-    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
       const mobileMenu = document.getElementById('mobile-menu');
       mobileMenu.classList.toggle('hidden');
     });
@@ -927,12 +997,12 @@
     // Reveal animation on scroll
     function reveal() {
       const reveals = document.querySelectorAll('.reveal');
-      
+
       for (let i = 0; i < reveals.length; i++) {
         const windowHeight = window.innerHeight;
         const elementTop = reveals[i].getBoundingClientRect().top;
         const elementVisible = 150;
-        
+
         if (elementTop < windowHeight - elementVisible) {
           reveals[i].classList.add('active');
         }
@@ -943,11 +1013,12 @@
     document.addEventListener('DOMContentLoaded', reveal);
 
     // Form submission
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', function (e) {
       e.preventDefault();
       alert('Merci pour votre demande ! Nous vous contacterons très prochainement.');
     });
   </script>
 
 </body>
+
 </html>
