@@ -10,6 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
+  <script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
   <style>
     :root {
       --primary-green: #059669;
@@ -219,6 +220,30 @@
 
     .summary-item:last-child {
       border-bottom: none;
+    }
+
+    .fedapay-container {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #pay-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #pay-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
     }
   </style>
 </head>
@@ -479,13 +504,27 @@
                 <span class="text-gray-600">Mode de paiement:</span>
                 <span class="font-medium" id="confirm-paiement"></span>
               </div>
+
+              <div class="summary-item">
+                <span class="text-gray-600">Montant total:</span>
+                <span class="font-medium" id="confirm-montant"></span>
+              </div>
+            </div>
+
+            <!-- Section FedaPay (visible seulement pour le paiement en ligne) -->
+            <div id="fedapay-container" class="fedapay-container hidden">
+              <h4 class="font-semibold text-lg mb-4">Paiement sécurisé FedaPay</h4>
+              <p class="text-gray-600 mb-4">Cliquez sur le bouton ci-dessous pour procéder au paiement sécurisé.</p>
+              <button id="pay-btn" class="btn-luxury">
+                <i class="fas fa-lock mr-2"></i>Payer maintenant
+              </button>
             </div>
             
-            <div class="flex justify-between">
+            <div class="flex justify-between mt-8">
               <button type="button" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors" onclick="prevStep()">
                 <i class="fas fa-arrow-left mr-2"></i>Retour
               </button>
-              <button type="submit" class="btn-luxury text-white px-8 py-4 rounded-full font-semibold">
+              <button type="button" id="confirm-reservation-btn" class="btn-luxury text-white px-8 py-4 rounded-full font-semibold">
                 <i class="fas fa-check-circle mr-2"></i>Confirmer la réservation
               </button>
             </div>
@@ -576,58 +615,22 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
   <script>
-    // Gestion du header au scroll
-    window.addEventListener('scroll', function () {
-      const header = document.getElementById('header');
-      if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.backdropFilter = 'blur(20px)';
-        header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-        header.querySelectorAll('.text-gray-700').forEach(el => {
-          el.style.color = '#374151';
-        });
-      } else {
-        header.style.background = 'transparent';
-        header.style.backdropFilter = 'none';
-        header.style.boxShadow = 'none';
-      }
-    });
-
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-      const mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Animation de révélation au défilement
-    function reveal() {
-      const reveals = document.querySelectorAll('.reveal');
-      for (let i = 0; i < reveals.length; i++) {
-        const windowHeight = window.innerHeight;
-        const elementTop = reveals[i].getBoundingClientRect().top;
-        const elementVisible = 150;
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add('active');
-        }
-      }
-    }
-
-    window.addEventListener('scroll', reveal);
-    document.addEventListener('DOMContentLoaded', reveal);
-
     // Gestion des étapes du formulaire
     let currentStep = 1;
     const totalSteps = 3;
 
+    // Prix des chambres (en FCFA)
+    const prixChambres = {
+      'bungalow': 50000,
+      'confort': 30000,
+      'suite': 80000
+    };
+
     function showStep(step) {
-      // Masquer toutes les étapes
       document.querySelectorAll('.form-step').forEach(el => {
         el.classList.remove('active');
       });
-      
-      // Afficher l'étape courante
       document.getElementById(`step${step}`).classList.add('active');
       
       // Mettre à jour l'indicateur d'étapes
@@ -699,13 +702,31 @@
       });
     }
 
-    function updateConfirmation() {
-      document.getElementById('confirm-nom').textContent = document.querySelector('input[name="nom"]').value;
-      document.getElementById('confirm-email').textContent = document.querySelector('input[name="email"]').value;
-      document.getElementById('confirm-telephone').textContent = document.querySelector('input[name="telephone"]').value;
-      
+    function calculerMontant() {
+      const typeChambre = document.querySelector('select[name="chambre"]').value;
       const arrivee = new Date(document.querySelector('input[name="arrivee"]').value);
       const depart = new Date(document.querySelector('input[name="depart"]').value);
+      
+      // Calcul du nombre de nuits
+      const diffTime = Math.abs(depart - arrivee);
+      const nbNuits = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      // Calcul du montant total
+      const prixNuitee = prixChambres[typeChambre] || 0;
+      const montantTotal = prixNuitee * nbNuits;
+      
+      return montantTotal;
+    }
+
+    function updateConfirmation() {
+      const formData = new FormData(document.getElementById('reservationForm'));
+      
+      document.getElementById('confirm-nom').textContent = formData.get('nom');
+      document.getElementById('confirm-email').textContent = formData.get('email');
+      document.getElementById('confirm-telephone').textContent = formData.get('telephone');
+      
+      const arrivee = new Date(formData.get('arrivee'));
+      const depart = new Date(formData.get('depart'));
       const options = { day: 'numeric', month: 'long', year: 'numeric' };
       document.getElementById('confirm-dates').textContent = 
         `${arrivee.toLocaleDateString('fr-FR', options)} - ${depart.toLocaleDateString('fr-FR', options)}`;
@@ -719,38 +740,93 @@
         `${adultes} adulte(s)${enfants > 0 ? `, ${enfants} enfant(s)` : ''}`;
       
       const paiement = document.querySelector('input[name="paiement"]:checked');
-      document.getElementById('confirm-paiement').textContent = 
-        paiement.value === 'en-ligne' ? 'Paiement en ligne (FedaPay)' : 'Paiement en présentiel';
+      const modePaiement = paiement.value === 'en-ligne' ? 'Paiement en ligne (FedaPay)' : 'Paiement en présentiel';
+      document.getElementById('confirm-paiement').textContent = modePaiement;
+      
+      // Calcul et affichage du montant
+      const montant = calculerMontant();
+      document.getElementById('confirm-montant').textContent = `${montant.toLocaleString('fr-FR')} FCFA`;
+      
+      // Afficher ou masquer la section FedaPay
+      const fedapayContainer = document.getElementById('fedapay-container');
+      if (paiement.value === 'en-ligne') {
+        fedapayContainer.classList.remove('hidden');
+      } else {
+        fedapayContainer.classList.add('hidden');
+      }
     }
 
+    // Initialiser FedaPay
+    function initFedaPay() {
+      const montant = calculerMontant();
+      const formData = new FormData(document.getElementById('reservationForm'));
+      
+      FedaPay.init('#pay-btn', {
+        public_key: 'pk_sandbox_yDBM_DaHsFFnmuhbGAtUUOTj', // Remplacez par votre clé publique
+        transaction: {
+          amount: montant,
+          description: `Réservation Morada Lodge - ${formData.get('nom')}`
+        },
+        customer: {
+          email: formData.get('email'),
+          lastname: formData.get('nom'),
+          phone_number: {
+            number: formData.get('telephone'),
+            country: 'BJ'
+          }
+        }
+      });
+    }
+
+    // Gestion de la soumission du formulaire
     document.getElementById('reservationForm').addEventListener('submit', function(e){
       e.preventDefault();
       
-      // Animation de confirmation
-      const confirmBtn = this.querySelector('button[type="submit"]');
-      const originalText = confirmBtn.innerHTML;
-      confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Traitement...';
-      confirmBtn.disabled = true;
+      const paiement = document.querySelector('input[name="paiement"]:checked');
       
-      // Simuler un envoi de formulaire
-      setTimeout(() => {
-        alert("Votre réservation a été confirmée ! Un email de confirmation vous a été envoyé.");
+      if (paiement.value === 'en-ligne') {
+        // Pour le paiement en ligne, on initialise FedaPay
+        initFedaPay();
+      } else {
+        // Pour le paiement en présentiel, on confirme simplement la réservation
+        const confirmBtn = document.getElementById('confirm-reservation-btn');
+        const originalText = confirmBtn.innerHTML;
+        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Traitement...';
+        confirmBtn.disabled = true;
         
-        // Réinitialiser le formulaire
-        this.reset();
-        currentStep = 1;
-        showStep(currentStep);
-        
-        // Réinitialiser les options de paiement
-        document.querySelectorAll('.payment-option').forEach(option => {
-          option.classList.remove('selected');
-          option.querySelector('.payment-radio > div').classList.add('hidden');
-        });
-        
-        // Réinitialiser le bouton
-        confirmBtn.innerHTML = originalText;
-        confirmBtn.disabled = false;
-      }, 2000);
+        setTimeout(() => {
+          alert("Votre réservation a été confirmée ! Un email de confirmation vous a été envoyé.");
+          this.reset();
+          currentStep = 1;
+          showStep(currentStep);
+          
+          // Réinitialiser les options de paiement
+          document.querySelectorAll('.payment-option').forEach(option => {
+            option.classList.remove('selected');
+            option.querySelector('.payment-radio > div').classList.add('hidden');
+          });
+          
+          // Réinitialiser le bouton
+          confirmBtn.innerHTML = originalText;
+          confirmBtn.disabled = false;
+        }, 2000);
+      }
+    });
+
+    // Écouter les événements FedaPay
+    FedaPay.on('transaction.created', function(response) {
+      console.log('Transaction créée', response);
+    });
+
+    FedaPay.on('transaction.completed', function(response) {
+      alert('Paiement effectué avec succès ! Votre réservation est confirmée.');
+      document.getElementById('reservationForm').reset();
+      currentStep = 1;
+      showStep(currentStep);
+    });
+
+    FedaPay.on('transaction.failed', function(response) {
+      alert('Le paiement a échoué. Veuillez réessayer.');
     });
 
     // Initialiser l'affichage
