@@ -185,7 +185,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <!-- Logo -->
-        <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3">
           <div
             class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
             <i class="fas fa-leaf text-white text-xl"></i>
@@ -194,7 +194,8 @@
             <h1 class="text-2xl font-playfair font-bold gradient-text">Morada Lodge</h1>
             <p class="text-xs text-gray-600 font-inter">Luxury Nature Resort</p>
           </div>
-        </div>
+        </a>
+
 
         <!-- Navigation -->
         <nav class="hidden md:flex space-x-8">
@@ -253,14 +254,22 @@
           Un sanctuaire de tranquillité où l'élégance rencontre l'authenticité africaine
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button class="btn-luxury text-white px-8 py-4 rounded-full font-semibold text-lg">
-            <i class="fas fa-calendar-check mr-3"></i>Réserver votre séjour
-          </button>
-          <button
-            class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition-all">
-            <i class="fas fa-play mr-3"></i>Visite virtuelle
-          </button>
+          <!-- Bouton réservation -->
+          <a href="reservation.html">
+            <button class="btn-luxury text-white px-8 py-4 rounded-full font-semibold text-lg">
+              <i class="fas fa-calendar-check mr-3"></i>Réserver votre séjour
+            </button>
+          </a>
+
+          <!-- Bouton visite virtuelle -->
+          <a href="https://www.youtube.com/watch?v=XXXXXXXX" target="_blank">
+            <button
+              class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition-all">
+              <i class="fas fa-play mr-3"></i>Visite virtuelle
+            </button>
+          </a>
         </div>
+
 
         <!-- Scroll indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
