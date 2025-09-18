@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant - Morada Lodge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            primary: '#B91C1C',
+            secondary: '#D97706',
+            accent: '#1E40AF',
+            neutral: '#1F2937',
+            light: '#F3F4F6',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .menu-item {
+      transition: all 0.3s ease;
+    }
+    .menu-item:hover {
+      transform: translateX(5px);
+    }
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50%;
+      height: 3px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-light text-neutral font-body">
+  <!-- En-tête avec image de fond -->
+  <header class="bg-gradient-to-r from-neutral to-gray-800 text-white py-16 px-6 text-center">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Restaurant du Morada Lodge</h1>
+      <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+      <p class="text-xl max-w-3xl mx-auto">
+        Situé face à la piscine, sous une majestueuse paillote, notre restaurant offre une atmosphère conviviale et élégante 
+        où la gastronomie locale rencontre les saveurs internationales.
+      </p>
+    </div>
+  </header>
+
+  <!-- Section Restaurant -->
+  <section class="max-w-5xl mx-auto py-12 px-6 -mt-10">
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <!-- Mets Africains -->
+      <div class="p-8 border-b">
+        <h2 class="text-2xl font-heading font-bold text-primary mb-6 section-title">
+          <span class="bg-primary text-white p-2 rounded-lg mr-2"><i class="fas fa-utensils"></i></span>
+          Mets Africains
+        </h2>
+        <div class="grid gap-4">
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-red-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Amiwo au poulet</h3>
+              <p class="text-sm text-gray-600">Plat traditionnel à base de maïs avec poulet</p>
+            </div>
+            <span class="font-bold text-primary">5.000 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-red-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Atassi avec Dja</h3>
+              <p class="text-sm text-gray-600">Riz parfumé accompagné de sauce tomate</p>
+            </div>
+            <span class="font-bold text-primary">3.500 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-red-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Bomiwo au poulet</h3>
+              <p class="text-sm text-gray-600">Spécialité à base de pâte de maïs et poulet</p>
+            </div>
+            <span class="font-bold text-primary">5.500 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-red-50 menu-item">
+            <div>
+              <h3 class="font-semibold">MAN au Télibo</h3>
+              <p class="text-sm text-gray-600">Plat signature du chef avec poisson fumé</p>
+            </div>
+            <span class="font-bold text-primary">6.000 FCFA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spécialités Européennes -->
+      <div class="p-8 border-b">
+        <h2 class="text-2xl font-heading font-bold text-accent mb-6 section-title">
+          <span class="bg-accent text-white p-2 rounded-lg mr-2"><i class="fas fa-cheese"></i></span>
+          Spécialités Européennes
+        </h2>
+        <div class="grid gap-4">
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-blue-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Spaghettis bolognaise</h3>
+              <p class="text-sm text-gray-600">Pâtes italiennes avec sauce à la viande maison</p>
+            </div>
+            <span class="font-bold text-accent">2.500 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-blue-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Steak de bœuf</h3>
+              <p class="text-sm text-gray-600">Entrecôte grillée, frites et sauce au choix</p>
+            </div>
+            <span class="font-bold text-accent">4.500 FCFA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grillades & Fruits de Mer -->
+      <div class="p-8 border-b">
+        <h2 class="text-2xl font-heading font-bold text-secondary mb-6 section-title">
+          <span class="bg-secondary text-white p-2 rounded-lg mr-2"><i class="fas fa-fish"></i></span>
+          Grillades & Fruits de Mer
+        </h2>
+        <div class="grid gap-4">
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-orange-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Brochette de bœuf</h3>
+              <p class="text-sm text-gray-600">Brochettes marinées avec légumes grillés</p>
+            </div>
+            <span class="font-bold text-secondary">4.000 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-orange-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Brochette de poisson</h3>
+              <p class="text-sm text-gray-600">Brochettes de poisson frais et épices</p>
+            </div>
+            <span class="font-bold text-secondary">4.500 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-orange-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Poisson braisé</h3>
+              <p class="text-sm text-gray-600">Poisson entier grillé au feu de bois</p>
+            </div>
+            <span class="font-bold text-secondary">4.500 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-orange-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Gambas sautées à l'ail</h3>
+              <p class="text-sm text-gray-600">Crevettes géantes sautées à l'ail et persil</p>
+            </div>
+            <span class="font-bold text-secondary">12.000 FCFA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Restauration Rapide -->
+      <div class="p-8 border-b">
+        <h2 class="text-2xl font-heading font-bold text-green-600 mb-6 section-title">
+          <span class="bg-green-600 text-white p-2 rounded-lg mr-2"><i class="fas fa-hamburger"></i></span>
+          Restauration Rapide
+        </h2>
+        <div class="grid gap-4">
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-green-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Shawarma (poulet ou viande)</h3>
+              <p class="text-sm text-gray-600">Wrap garni de viande, légumes et sauce</p>
+            </div>
+            <span class="font-bold text-green-600">2.000 FCFA</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-green-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Burgers variés</h3>
+              <p class="text-sm text-gray-600">Selon l'inspiration du chef - demandez-nous</p>
+            </div>
+            <span class="italic text-gray-500">Sur commande</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-lg hover:bg-green-50 menu-item">
+            <div>
+              <h3 class="font-semibold">Frites au poulet</h3>
+              <p class="text-sm text-gray-600">Frites croustillantes avec poulet pané</p>
+            </div>
+            <span class="font-bold text-green-600">2.500 FCFA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Salades -->
+      <div class="p-8 border-b">
+        <h2 class="text-2xl font-heading font-bold text-teal-600 mb-6 section-title">
+          <span class="bg-teal-600 text-white p-2 rounded-lg mr-2"><i class="fas fa-leaf"></i></span>
+          Salades Fraîches
+        </h2>
+        <div class="bg-teal-50 p-4 rounded-lg">
+          <p class="text-center">Salades composées accompagnées de sauces maison — <span class="font-semibold">prix selon la carte du jour</span></p>
+        </div>
+      </div>
+
+      <!-- Bar & Cocktails -->
+      <div class="p-8 border-b">
+        <h2 class="text-2xl font-heading font-bold text-purple-600 mb-6 section-title">
+          <span class="bg-purple-600 text-white p-2 rounded-lg mr-2"><i class="fas fa-cocktail"></i></span>
+          Bar & Cocktails
+        </h2>
+        <div class="bg-purple-50 p-4 rounded-lg">
+          <p class="text-center">Un large choix de boissons rafraîchissantes et cocktails originaux pour accompagner vos repas ou vos moments de détente.</p>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="text-center">
+              <i class="fas fa-wine-glass-alt text-purple-600 text-2xl mb-2"></i>
+              <p class="font-semibold">Vins sélectionnés</p>
+            </div>
+            <div class="text-center">
+              <i class="fas fa-glass-martini-alt text-purple-600 text-2xl mb-2"></i>
+              <p class="font-semibold">Cocktails maison</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ambiance Festive -->
+      <div class="p-8 bg-gradient-to-r from-secondary to-yellow-500 text-white text-center">
+        <h2 class="text-2xl font-heading font-bold mb-4"><i class="fas fa-music mr-2"></i> Ambiance Festive</h2>
+        <p class="text-lg mb-4">Profitez d'un <strong>barbecue ou d'un chili entre amis autour de la piscine</strong>, dans une ambiance conviviale et musicale.</p>
+        <div class="flex justify-center space-x-4 mt-6">
+          <div class="bg-white text-secondary rounded-full p-3">
+            <i class="fas fa-grill-hot text-xl"></i>
+          </div>
+          <div class="bg-white text-secondary rounded-full p-3">
+            <i class="fas fa-swimming-pool text-xl"></i>
+          </div>
+          <div class="bg-white text-secondary rounded-full p-3">
+            <i class="fas fa-music text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information supplémentaire -->
+    <div class="mt-8 text-center text-gray-600">
+      <p><i class="fas fa-info-circle mr-2"></i> Service continu de 11h à 22h | Réservations recommandées en soirée</p>
+      <p class="mt-2"><i class="fas fa-phone-alt mr-2"></i> +229 0167836481</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-neutral text-white py-8 text-center mt-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <p class="font-heading text-xl mb-4">Morada Lodge</p>
+      <p>Votre oasis de tranquillité et de saveurs</p>
+      <div class="flex justify-center space-x-4 mt-4">
+        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-tripadvisor"></i></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
