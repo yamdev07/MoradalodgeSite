@@ -638,6 +638,8 @@
     <!-- Galerie Section -->
     <section id="galerie" class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-6">
+
+        <!-- Titre -->
         <div class="text-center mb-16 reveal">
           <span class="brown-text font-semibold tracking-wider uppercase text-sm">Galerie</span>
           <h2 class="text-4xl md:text-5xl font-playfair font-bold mt-2 mb-6">Moments d'Exception</h2>
@@ -647,10 +649,11 @@
           </p>
         </div>
 
+        <!-- Grille principale -->
         <div class="grid md:grid-cols-4 gap-6">
           <div class="md:col-span-2 md:row-span-2">
             <div class="image-container relative h-96 md:h-full overflow-hidden rounded-3xl shadow-lg reveal">
-              <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210c7"
+              <img src="images/piscineP.jpg"
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                 alt="Piscine principale">
               <div class="image-overlay rounded-3xl">
@@ -662,7 +665,7 @@
             </div>
           </div>
           <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+            <img src="images/jardin.jpg"
               class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
               alt="Jardins tropicaux">
             <div class="image-overlay rounded-3xl">
@@ -673,7 +676,7 @@
             </div>
           </div>
           <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7"
+            <img src="images/restaurant.jpg"
               class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
               alt="Restaurant paillote">
             <div class="image-overlay rounded-3xl">
@@ -684,7 +687,7 @@
             </div>
           </div>
           <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d"
+            <img src="images/accueil_entree.jpg"
               class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Lobby accueil">
             <div class="image-overlay rounded-3xl">
               <div class="text-center">
@@ -694,7 +697,7 @@
             </div>
           </div>
           <div class="image-container relative h-48 overflow-hidden rounded-3xl shadow-lg reveal">
-            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96"
+            <img src="images/terrasse.jpg"
               class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="Sunset terrace">
             <div class="image-overlay rounded-3xl">
               <div class="text-center">
@@ -704,14 +707,115 @@
             </div>
           </div>
         </div>
-
+        <!-- Bouton voir toute la galerie -->
         <div class="text-center mt-12 reveal">
-          <button class="brown-bg brown-hover text-white px-8 py-4 rounded-full font-semibold transition-colors">
+          <button id="openGalleryBtn"
+            class="brown-bg brown-hover text-white px-8 py-4 rounded-full font-semibold transition-colors">
             <i class="fas fa-images mr-3"></i>Voir toute la galerie
           </button>
         </div>
       </div>
     </section>
+
+    <!-- Modal Galerie Complète avec animations -->
+    <div id="fullGallery"
+      class="fixed inset-0 bg-black bg-opacity-0 overflow-auto z-50 p-6 hidden transition-opacity duration-500">
+      <div
+        class="bg-white rounded-lg max-w-6xl mx-auto p-6 transform transition-transform duration-500 scale-95 opacity-0">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-3xl font-bold">Galerie Complète</h2>
+          <button id="closeGalleryBtn"
+            class="text-3xl text-gray-600 hover:text-brown-600 transition-colors">&times;</button>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-4 gallery-grid">
+          <div class="gallery-item">
+            <img src="images/piscineP.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Piscine principale">
+          </div>
+          <div class="gallery-item">
+            <img src="images/jardin.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Jardins tropicaux">
+          </div>
+          <div class="gallery-item">
+            <img src="images/dg.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="DG">
+          </div>
+          <div class="gallery-item">
+            <img src="images/accueil_entree.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Lobby accueil">
+          </div>
+          <div class="gallery-item">
+            <img src="images/exposition.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Exposition">
+          </div>
+          <div class="gallery-item">
+            <img src="images/lit.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Chambre">
+          </div>
+          <div class="gallery-item">
+            <img src="images/salle_a_manger.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Salle à manger">
+          </div>
+          <div class="gallery-item">
+            <img src="images/terrasse.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Sunset terrace">
+          </div>
+          <div class="gallery-item">
+            <img src="images/vuehaute.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Vue d'en haut">
+          </div>
+          <div class="gallery-item">
+            <img src="images/vue_expo.jpg"
+              class="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+              alt="Vue exposition">
+          </div>
+        </div>
+
+        <div class="text-center mt-6">
+          <button id="modalCloseBtn"
+            class="px-6 py-2 bg-brown-600 text-white rounded hover:bg-brown-700 transition-colors">Fermer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox pour afficher les images en grand -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center hidden">
+      <div class="relative max-w-4xl w-full mx-4">
+        <button id="closeLightbox" class="absolute -top-12 right-0 text-white text-3xl z-10">&times;</button>
+        <button id="prevBtn"
+          class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10">
+          &lt;
+        </button>
+        <button id="nextBtn"
+          class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10">
+          &gt;
+        </button>
+        <img id="lightboxImage" class="w-full h-auto max-h-screen object-contain rounded-lg" src="" alt="">
+        <p id="lightboxCaption" class="text-white text-center mt-2"></p>
+      </div>
+    </div>
+
+    <style>
+      .gallery-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      #lightboxImage {
+        transition: opacity 0.3s ease;
+      }
+    </style>
 
     <!-- Testimonials Section -->
     <section class="py-20 beige-bg">
@@ -1076,6 +1180,110 @@
     document.querySelector('form').addEventListener('submit', function (e) {
       e.preventDefault();
       alert('Merci pour votre demande ! Nous vous contacterons très prochainement.');
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const fullGallery = document.getElementById('fullGallery');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      const galleryItems = document.querySelectorAll('.gallery-item img');
+      const galleryImages = Array.from(galleryItems).map(img => ({
+        src: img.src,
+        alt: img.alt
+      }));
+      let currentIndex = 0;
+
+      // Ouvrir la galerie modale
+      document.getElementById('openGalleryBtn').addEventListener('click', function () {
+        fullGallery.classList.remove('hidden');
+        setTimeout(() => {
+          fullGallery.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+          const modalContent = fullGallery.querySelector('div');
+          modalContent.classList.remove('scale-95', 'opacity-0');
+          modalContent.classList.add('scale-100', 'opacity-100');
+
+          // Animation d'entrée des images
+          const items = document.querySelectorAll('.gallery-item');
+          items.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('opacity-100', 'translate-y-0');
+            }, index * 100);
+          });
+        }, 10);
+      });
+
+      // Fermer la galerie modale
+      function closeGallery() {
+        const modalContent = fullGallery.querySelector('div');
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        fullGallery.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+
+        setTimeout(() => {
+          fullGallery.classList.add('hidden');
+        }, 500);
+      }
+
+      document.getElementById('closeGalleryBtn').addEventListener('click', closeGallery);
+      document.getElementById('modalCloseBtn').addEventListener('click', closeGallery);
+
+      // Ouvrir la lightbox
+      galleryItems.forEach((img, index) => {
+        img.addEventListener('click', function () {
+          currentIndex = index;
+          updateLightbox();
+          lightbox.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Fermer la lightbox
+      document.getElementById('closeLightbox').addEventListener('click', function () {
+        lightbox.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+
+      // Navigation dans la lightbox
+      document.getElementById('nextBtn').addEventListener('click', function () {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        updateLightbox();
+      });
+
+      document.getElementById('prevBtn').addEventListener('click', function () {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        updateLightbox();
+      });
+
+      // Navigation au clavier
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('hidden')) {
+          if (e.key === 'Escape') {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          } else if (e.key === 'ArrowRight') {
+            currentIndex = (currentIndex + 1) % galleryImages.length;
+            updateLightbox();
+          } else if (e.key === 'ArrowLeft') {
+            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+          }
+        }
+      });
+
+      // Mettre à jour la lightbox avec l'image actuelle
+      function updateLightbox() {
+        lightboxImage.src = galleryImages[currentIndex].src;
+        lightboxCaption.textContent = galleryImages[currentIndex].alt;
+
+        // Animation de transition
+        lightboxImage.classList.add('opacity-0');
+        setTimeout(() => {
+          lightboxImage.classList.remove('opacity-0');
+        }, 300);
+      }
     });
   </script>
 
