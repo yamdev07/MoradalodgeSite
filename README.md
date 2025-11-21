@@ -66,29 +66,38 @@ Copier le code
 ```bash
 git clone https://github.com/votre-utilisateur/morada-lodge.git
 Ouvrir le fichier index.html dans un navigateur web moderne.
-
+````
 Pour les modifications CSS, JavaScript ou contenu, éditez les fichiers correspondants.
 
-📌 Contribution
+---
+# 📌 Contribution
 Les contributions sont les bienvenues !
 Pour proposer des modifications :
 
-Forkez le dépôt
+- Forkez le dépôt
 
-Créez une branche (git checkout -b feature/nom-fonctionnalité)
+- Créez une branche
+````
+(git checkout -b feature/nom-fonctionnalité)
+````
+- Faites vos modifications
 
-Faites vos modifications
+- Soumettez une Pull Request
 
-Soumettez une Pull Request
-
-📝 Licence
+---
+# 📝 Licence
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
-📞 Contact
+---
+# 📞 Contact
 Email : contact@moradalodge.com
 
 Téléphone : +229 90 00 00 00
 
 Adresse : Cotonou, Bénin
+---
+# Auteurs
+
+Yoann yamd
 
 Morada Lodge - Découvrez le luxe au cœur de la nature.
